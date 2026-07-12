@@ -1,0 +1,13 @@
+<FilesMatch "^(config\.php|nginx\.example\.conf|nginx\.rewrite\.conf|bt\.rewrite\.conf)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:config\.php|nginx\.example\.conf|nginx\.rewrite\.conf|bt\.rewrite\.conf)$ - [F,L]
+    RewriteRule ^storage/ - [F,L]
+    RewriteRule ^public/ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
